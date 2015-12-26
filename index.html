@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>8085 Simulator</title>
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+</head>
+<body>
+	
+	<div class="container-main abs-center">
+
+		<!-- DISPLAY CODE -->
+		<div class="container-display">
+			<div class="container-address left">
+				<input type="text" maxlength="4" readonly="" value="4F3D" class="display-address disp" dir="rtl" placeholder="-- UPS 80">
+			</div>
+			<div class="container-data left">
+				<input type="text" maxlength="2" readonly="" value="FF" class="display-data disp" dir="rtl" placeholder="--">
+			</div>
+		</div>
+
+		<!-- KEYBOARD CODE -->
+		<div class="container-keyboard">
+			<div class="block-kybd small-block left">
+				<button class="button" value="reset">Reset</button>
+				<button class="button" value="kbint">Kbint</button>
+				<button class="button" value="f1">f1</button>
+				<button class="button" value="insert">Insert</button>
+				<button class="button" value="f2">f2</button>
+				<button class="button" value="delete">Delete</button>
+				<button class="button" value="next">Next</button>
+				<button class="button" value="prev">Prev</button>
+			</div>
+			<div class="block-kybd large-block left">
+				<button class="button" value="F">F</button>
+				<button class="button" value="E">E</button>
+				<button class="button" value="D">D</button>
+				<button class="button" value="C">C</button>
+				<button class="button" value="B">B</button>
+				<button class="button" value="A">A</button>
+				<button class="button" value="9">9</button>
+				<button class="button" value="8">8</button>
+				<button class="button" value="7">7</button>
+				<button class="button" value="6">6</button>
+				<button class="button" value="5">5</button>
+				<button class="button" value="4">4</button>
+				<button class="button" value="3">3</button>
+				<button class="button" value="2">2</button>
+				<button class="button" value="1">1</button>
+				<button class="button" value="0">0</button>
+			</div>
+			<div class="block-kybd small-block left">
+				<button class="button" value="">Out Byte</button>
+				<button class="button" value="">In Byte</button>
+				<button class="button" value="">Blk move</button>
+				<button class="button" value="">Single Step</button>
+				<button class="button" value="">Exam Mem</button>
+				<button class="button" value="">Exam Reg</button>
+				<button class="button" value="">Exec</button>
+				<button class="button" value="">Go</button>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,119 @@
+/* line 1, ../scss/style.scss */
+.abs-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+/* line 10, ../scss/style.scss */
+.left {
+  float: left;
+}
+
+/* line 14, ../scss/style.scss */
+.disp {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  font-size: 3em;
+}
+
+/* line 21, ../scss/style.scss */
+.container-main {
+  width: 50%;
+  height: 500px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+/* line 28, ../scss/style.scss */
+.container-display {
+  padding: 20px 10px;
+  overflow: auto;
+}
+
+/* line 33, ../scss/style.scss */
+.container-address {
+  width: 65%;
+  margin-right: 5%;
+}
+
+/* line 38, ../scss/style.scss */
+.container-data {
+  width: 30%;
+}
+
+/* line 42, ../scss/style.scss */
+.container-keyboard {
+  height: 100%;
+  padding: 10px;
+}
+
+/* line 47, ../scss/style.scss */
+.block-kybd {
+  box-sizing: border-box;
+}
+
+/* line 51, ../scss/style.scss */
+.large-block {
+  width: 55%;
+  padding: 0 3% 0 0;
+  /*padding-right: 15px;*/
+  /*padding-left: 15px;*/
+}
+
+/* line 58, ../scss/style.scss */
+.small-block {
+  width: 22.5%;
+}
+
+/* line 62, ../scss/style.scss */
+.button {
+  float: right;
+  min-width: 35px;
+  min-height: 35px;
+  max-width: 50%;
+  box-sizing: border-box;
+  margin: 5px 0 5px 3px;
+  text-transform: uppercase;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  border: none;
+  outline: none;
+}
+
+/* line 79, ../scss/style.scss */
+.large-block .button {
+  width: 20%;
+}
+
+/* line 84, ../scss/style.scss */
+.large-block .button:nth-of-type(4n+1) {
+  clear: both;
+}
+
+/* line 88, ../scss/style.scss */
+.small-block .button {
+  width: 45%;
+}
+
+/* line 92, ../scss/style.scss */
+.small-block:nth-of-type(1) .button {
+  float: left;
+}
+
+/* line 97, ../scss/style.scss */
+.small-block:nth-of-type(1) .button:nth-of-type(2n+1) {
+  margin-left: 0;
+}
+
+/* line 101, ../scss/style.scss */
+.small-block .button:nth-of-type(2n+1) {
+  clear: both;
+}
+
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,103 @@
+.abs-center{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.left{
+  float: left;
+}
+
+.disp{
+  width: 100%;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  font-size: 3em;
+}
+
+.container-main{
+  width: 50%;
+  height: 500px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.container-display{
+  padding: 20px 10px;
+  overflow: auto;
+}
+
+.container-address{
+  width: 65%;
+  margin-right: 5%;
+}
+
+.container-data{
+  width: 30%;
+}
+
+.container-keyboard{
+  height: 100%;
+  padding: 10px;
+}
+
+.block-kybd{
+  box-sizing: border-box;
+}
+
+.large-block{
+  width: 55%;
+  padding: 0 3% 0 0;
+  /*padding-right: 15px;*/
+  /*padding-left: 15px;*/
+}
+
+.small-block{
+  width: 22.5%;
+}
+
+.button{
+  float: right;
+  min-width: 35px;
+  min-height: 35px;
+  max-width: 50%;
+  box-sizing: border-box;
+  margin: 5px 0 5px 3px;
+  text-transform: uppercase;
+
+  height: 70px;
+  width: 70px;
+
+  border-radius: 50%;
+  border: none;
+  outline: none;
+}
+
+.large-block .button{
+  width: 20%
+}
+
+
+.large-block .button:nth-of-type(4n+1){
+  clear: both;
+}
+
+.small-block .button{
+  width: 45%;
+}
+
+.small-block:nth-of-type(1) .button{
+  float: left;
+}
+
+
+.small-block:nth-of-type(1) .button:nth-of-type(2n+1){
+  margin-left: 0;
+}
+
+.small-block .button:nth-of-type(2n+1){
+  clear: both;
+}
