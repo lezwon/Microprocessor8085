@@ -1,65 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:v-bind="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<title>8085 Simulator</title>
 	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<script src="js/vue.min.js"></script>
 </head>
-<body>
+<body >
 	
-	<div class="container-main abs-center">
+	<div class="container-main abs-center" id="app">
 
 		<!-- DISPLAY CODE -->
 		<div class="container-display">
 			<div class="container-address left">
-				<input type="text" maxlength="4" readonly="" value="4F3D" class="display-address disp" dir="rtl" placeholder="-- UPS 80">
+				<div class="display-address disp" v-bind:class="{'active':ACTIVE_ADDRESS, 'reset':MP_RESET}">{{ addressField }}</div>
+                <!--<input value="{{ addressField }}" type="text" maxlength="4" readonly="" class="display-address disp" dir="rtl" placeholder="UPS &#45;&#45;">-->
 			</div>
 			<div class="container-data left">
-				<input type="text" maxlength="2" readonly="" value="FF" class="display-data disp" dir="rtl" placeholder="--">
+                <div class="display-data disp" v-bind:class="{'active':ACTIVE_DATA, 'reset':MP_RESET}">{{ dataField }}</div>
+				<!--<input value="{{ dataField }}" type="text" maxlength="2" readonly="" class="display-data disp" dir="rtl" placeholder="85">-->
 			</div>
 		</div>
 
 		<!-- KEYBOARD CODE -->
 		<div class="container-keyboard">
 			<div class="block-kybd small-block left">
-				<button class="button" value="reset">Reset</button>
+				<button class="button" value="reset" @click="reset">Reset</button>
 				<button class="button" value="kbint">Kbint</button>
 				<button class="button" value="f1">f1</button>
 				<button class="button" value="insert">Insert</button>
 				<button class="button" value="f2">f2</button>
 				<button class="button" value="delete">Delete</button>
-				<button class="button" value="next">Next</button>
+				<button class="button" value="next" @click="next">Next</button>
 				<button class="button" value="prev">Prev</button>
 			</div>
 			<div class="block-kybd large-block left">
-				<button class="button" value="F">F</button>
-				<button class="button" value="E">E</button>
-				<button class="button" value="D">D</button>
-				<button class="button" value="C">C</button>
-				<button class="button" value="B">B</button>
-				<button class="button" value="A">A</button>
-				<button class="button" value="9">9</button>
-				<button class="button" value="8">8</button>
-				<button class="button" value="7">7</button>
-				<button class="button" value="6">6</button>
-				<button class="button" value="5">5</button>
-				<button class="button" value="4">4</button>
-				<button class="button" value="3">3</button>
-				<button class="button" value="2">2</button>
-				<button class="button" value="1">1</button>
-				<button class="button" value="0">0</button>
+				<button class="button" value="F" @click="updtAdd">F</button>
+				<button class="button" value="E" @click="updtAdd">E</button>
+				<button class="button" value="D" @click="updtAdd">D</button>
+				<button class="button" value="C" @click="updtAdd">C</button>
+				<button class="button" value="B" @click="updtAdd">B</button>
+				<button class="button" value="A" @click="updtAdd">A</button>
+				<button class="button" value="9" @click="updtAdd">9</button>
+				<button class="button" value="8" @click="updtAdd">8</button>
+				<button class="button" value="7" @click="updtAdd">7</button>
+				<button class="button" value="6" @click="updtAdd">6</button>
+				<button class="button" value="5" @click="updtAdd">5</button>
+				<button class="button" value="4" @click="updtAdd">4</button>
+				<button class="button" value="3" @click="updtAdd">3</button>
+				<button class="button" value="2" @click="updtAdd">2</button>
+				<button class="button" value="1" @click="updtAdd">1</button>
+				<button class="button" value="0" @click="updtAdd">0</button>
 			</div>
 			<div class="block-kybd small-block left">
 				<button class="button" value="">Out Byte</button>
 				<button class="button" value="">In Byte</button>
 				<button class="button" value="">Blk move</button>
 				<button class="button" value="">Single Step</button>
-				<button class="button" value="">Exam Mem</button>
-				<button class="button" value="">Exam Reg</button>
+				<button class="button" value="" @click="examMemory">Exam Mem</button>
+				<button class="button" value="" @click="examRegister">Exam Reg</button>
 				<button class="button" value="">Exec</button>
 				<button class="button" value="">Go</button>
 			</div>
 		</div>
 	</div>
+
+
+	<script src="js/script.js"></script>
 </body>
 </html>

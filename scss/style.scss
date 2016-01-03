@@ -1,4 +1,7 @@
-.abs-center{
+@import "compass";
+@import "variables";
+
+.abs-center{ //absolute centering
   position: absolute;
   top: 0;
   left: 0;
@@ -14,15 +17,51 @@
 .disp{
   width: 100%;
   box-sizing: border-box;
-  padding: 15px 20px;
-  font-size: 3em;
+  padding: 10px 20px;
+  border-radius: 10px;
+  background: grey;
+
+  font-size: 4em;
+  font-weight: bold;
+  font-family: DS-Digital, sans-serif;
+  border: 2px solid transparent;
+  direction: rtl;
+  min-height: 90px;
+  color: darken(white,5);
+  @include transition(all .5s ease);
+  @include single-box-shadow($displayGrey,0, 0, 10px, 5px,inset);
+
+  &::before{
+    content: " ";
+  }
+
+  &.reset{
+    color: darken(white,15);
+  }
+
+  &.active{
+    //border-color: $activeBlue;
+    color: white;
+    @include single-box-shadow(darken($displayGrey,10),0, 0, 10px, 5px,inset);
+
+    &::before{
+      content: ".";
+    }
+  }
+}
+
+body{
+  background: $darkbrown;
 }
 
 .container-main{
-  width: 50%;
+  width: 730px;
   height: 500px;
   border: 2px solid black;
-  border-radius: 10px;
+  border-radius: 20px;
+  padding: 2%;
+  background: ghostwhite;
+  @include single-box-shadow(0, 10px, 15px, 5px, black);
 }
 
 .container-display{
@@ -48,56 +87,58 @@
   box-sizing: border-box;
 }
 
+.button{
+  float: right;
+  width: 75px;
+  height: 75px;
+  max-width: 50%;
+  box-sizing: border-box;
+  margin: 5px 0 5px 5px;
+  text-transform: uppercase;
+
+  border-radius: 50%;
+  border: 2px solid $lightgrey;
+  outline: none;
+
+  font-family: Consolas, sans-serif;
+  font-size: 1em;
+
+  @include transition(all .7s ease);
+
+  &:hover{
+    background: darken(ghostwhite,5);
+  }
+
+  &:active{
+    background: lighten(black,5);
+  }
+}
+
 .large-block{
-  width: 55%;
-  padding: 0 3% 0 0;
+  width: 53%;
+  padding: 0 20px;
   /*padding-right: 15px;*/
   /*padding-left: 15px;*/
+
+
+  & .button:nth-of-type(4n+1){
+    clear: both;
+  }
 }
 
 .small-block{
-  width: 22.5%;
-}
+  width: 23.5%;
 
-.button{
-  float: right;
-  min-width: 35px;
-  min-height: 35px;
-  max-width: 50%;
-  box-sizing: border-box;
-  margin: 5px 0 5px 3px;
-  text-transform: uppercase;
-
-  height: 70px;
-  width: 70px;
-
-  border-radius: 50%;
-  border: none;
-  outline: none;
-}
-
-.large-block .button{
-  width: 20%
-}
+  &:nth-of-type(1) .button{
+    float: left;
+  }
 
 
-.large-block .button:nth-of-type(4n+1){
-  clear: both;
-}
+  &:nth-of-type(1) .button:nth-of-type(2n+1){
+    margin-left: 0;
+  }
 
-.small-block .button{
-  width: 45%;
-}
-
-.small-block:nth-of-type(1) .button{
-  float: left;
-}
-
-
-.small-block:nth-of-type(1) .button:nth-of-type(2n+1){
-  margin-left: 0;
-}
-
-.small-block .button:nth-of-type(2n+1){
-  clear: both;
+  & .button:nth-of-type(2n+1){
+    clear: both;
+  }
 }
