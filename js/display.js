@@ -1,10 +1,9 @@
-var length = new Symbol("Length of the Field");
-var field = new Symbol("Value of the Field");
+var length =  Symbol("Length of the Field");
+var field =  Symbol("Value of the Field");
 
 
 export default class DisplayField{
-
-
+    
     constructor(l){
 
         if(l < 1 || isNaN(l))

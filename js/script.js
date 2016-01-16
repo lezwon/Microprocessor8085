@@ -1,4 +1,4 @@
-import DisplayField from 'display';
+import DisplayField from './display';
 
 const MAX_LENGTH_ADDRESS = 4;
 const MAX_LENGTH_DATA = 2;
@@ -72,7 +72,7 @@ new Vue({
         keyPressed: function(e){
             var char = String.fromCharCode(e.keyCode).toUpperCase();
             if(char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 97){
-                AddressField.addChar(char);
+                //AddressField.addChar(char);
             }
         }
 
