@@ -6,8 +6,8 @@ var path = require('path');
 module.exports = {
     entry: './js/script.js',
     output: {
-        path: __dirname,
-        filename: './js/final.js'
+        path: "./js/",
+        filename: 'final.js'
     },
 
     module: {
@@ -21,5 +21,7 @@ module.exports = {
                 }
             }
         ]
-    }
+    },
+
+    devtool: "#source-map"
 };
