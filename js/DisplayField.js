@@ -1,22 +1,43 @@
+
 export default class DisplayField{
-    
-    constructor(len,value){
+
+
+
+    constructor(idString,len,value){
         if(len < 1 || isNaN(len))
             throw new Error("Invalid Field Length");
+
+        this.element = document.getElementById(idString) !== null ? document.getElementById(idString): null;
+
+        if(!this.element){
+            throw new Error("Element not found. Incorrect ID");
+        }
 
         this.resetValue = value;
         this.length = len;
         this.fieldValue = value;
+
     }
 
+    /*setter for fieldValue (modifies element text on change)*/
+    set fieldValue(value){
+        this.element.innerHTML = value;
+    }
 
-    //change entire value
+    /*getter for field value*/
+    get fieldValue(){
+
+    }
+
+    /*change entire value (slices if value > 4)*/
     set value(value)
     {
         if(value.length > this.length)
             this.fieldValue = value.slice(1,this.length+1);
         else
             this.fieldValue = value;
+
+
     }
 
     /*get the current value*/
@@ -25,13 +46,6 @@ export default class DisplayField{
         return this.fieldValue;
     }
 
-    /*add a char to value*/
-    addChar(value)
-    {
-        this.fieldValue += value;
-        if(this.fieldValue.length > this.length)
-            this.fieldValue = this.fieldValue.slice(1,this.length+1);
-    }
 
     /*clear completely*/
     clear()

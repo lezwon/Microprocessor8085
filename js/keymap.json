@@ -1,0 +1,16 @@
+{
+  "N": 1, //next
+  "M": 2, //prev
+  "K": 3, //exam reg
+  "L": 4, //exam mem
+  "O": 5, //go
+  "P": 6, //exec
+  "R": 7, //reset
+  "S": 8,//single step
+  "G": 9, //insert
+  "H": 10, //delete
+  "J": 11,//block move
+  "I": 12,//interrupt
+  "Y": 13,
+  "U": 14
+}

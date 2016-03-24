@@ -92,7 +92,7 @@ body {
 
 /* line 81, ../scss/style.scss */
 .container-keyboard {
-  height: 100%;
+  overflow: auto;
   padding: 10px;
 }
 

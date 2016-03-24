@@ -44,107 +44,93 @@
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	var _DisplayField = __webpack_require__(1);
+	var _Microprocessor = __webpack_require__(1);
 	
-	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	var _Microprocessor2 = _interopRequireDefault(_Microprocessor);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var RESET = 0;
-	var EXAM_MEM = 1;
-	var EXAM_REG = 2;
-	var BLK_MOVE = 3;
-	var SINGLE_STEP = 4;
-	var GO = 5;
-	var EXEC = 6;
-	var DELETE = 7;
-	var INSERT = 8;
-	
-	var ACTIVE_FUNCTION = RESET;
-	
-	//TODO gettets and setter sof rvariables in class
-	//TODO hex class
-	//TODO convert to instructions
-	//TODO arrays or json to store instructions and stuff
-	
-	var vm = new Vue({
-	    el: "#app",
-	    data: {
-	        addressFieldObj: new _DisplayField2.default(4, "UPS-"),
-	        dataFieldObj: new _DisplayField2.default(2, "85"),
-	        addressField: "UPS-",
-	        dataField: "85",
-	        ACTIVE_ADDRESS: false,
-	        ACTIVE_DATA: false,
-	        MP_RESET: true
-	    },
-	
-	    methods: {
-	        clearScreen: function clearScreen() {
-	            this.addressFieldObj.clear();
-	            this.dataFieldObj.clear();
-	            this.MP_RESET = false;
-	        },
-	
-	        updtAdd: function updtAdd(e) {
-	            if (this.ACTIVE_ADDRESS && !this.ACTIVE_DATA) {
-	                if (this.MP_RESET) this.clearScreen();
-	                this.addressFieldObj.value += e.target.value;
-	            } else if (!this.ACTIVE_ADDRESS && this.ACTIVE_DATA) {
-	                this.dataFieldObj.value += e.target.value;
-	            }
-	        },
-	
-	        reset: function reset() {
-	            this.addressFieldObj.reset();
-	            this.dataFieldObj.reset();
-	            this.MP_RESET = 1;
-	            this.ACTIVE_ADDRESS = false;
-	            this.ACTIVE_DATA = false;
-	        },
-	
-	        examRegister: function examRegister() {},
-	
-	        examMemory: function examMemory() {
-	            this.ACTIVE_ADDRESS = true;
-	            this.clearScreen();
-	        },
-	
-	        next: function next() {
-	
-	            if (this.MP_RESET && !this.ACTIVE_ADDRESS) return;
-	
-	            this.ACTIVE_ADDRESS = false;
-	            this.ACTIVE_DATA = true;
-	        },
-	
-	        keyPressed: function keyPressed(e) {
-	            var char = String.fromCharCode(e.keyCode).toUpperCase();
-	            if (char.charCodeAt(0) >= 65 && char.charCodeAt(0) <= 70 || char.charCodeAt(0) >= 48 && char.charCodeAt(0) <= 57) {
-	                if (this.ACTIVE_ADDRESS && !this.ACTIVE_DATA) {
-	                    if (this.MP_RESET) this.clearScreen();
-	                    this.addressFieldObj.value += char;
-	                } else if (!this.ACTIVE_ADDRESS && this.ACTIVE_DATA) {
-	                    this.dataFieldObj.value += char;
-	                }
-	            }
-	        }
-	    }
-	
-	});
-	
-	vm.$watch('addressFieldObj', function () {
-	    this.addressField = this.addressFieldObj.value;
-	}, { deep: true });
-	
-	vm.$watch('dataFieldObj', function () {
-	    this.dataField = this.dataFieldObj.value;
-	}, { deep: true });
+	(function () {
+	    _Microprocessor2.default.start();
+	    _Microprocessor2.default.listen();
+	})();
 
 /***/ },
 /* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Lezwon on 24-03-2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _DisplayField = __webpack_require__(2);
+	
+	var _DisplayField2 = _interopRequireDefault(_DisplayField);
+	
+	var _Keyboard = __webpack_require__(3);
+	
+	var _Keyboard2 = _interopRequireDefault(_Keyboard);
+	
+	var _Controller = __webpack_require__(4);
+	
+	var _Controller2 = _interopRequireDefault(_Controller);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var addressFieldId = "address-field";
+	var dataFieldId = "data-field";
+	
+	//TODO add activate
+	//TODO add chracter typing
+	
+	var Microprocessor = function () {
+	    function Microprocessor() {
+	        _classCallCheck(this, Microprocessor);
+	    }
+	
+	    _createClass(Microprocessor, null, [{
+	        key: 'start',
+	
+	        /*initialize all classes and objects*/
+	        value: function start() {
+	            this.addressField = new _DisplayField2.default(addressFieldId, 4, "UPS-");
+	            this.dataField = new _DisplayField2.default(dataFieldId, 2, "80");
+	
+	            _Controller2.default.setDisplayFields(this.addressField, this.dataField);
+	            _Keyboard2.default.setController(_Controller2.default);
+	        }
+	
+	        /*start listening for events*/
+	
+	    }, {
+	        key: 'listen',
+	        value: function listen() {
+	            document.addEventListener('keypress', _Keyboard2.default.keypressHandler);
+	
+	            var buttons = document.querySelectorAll('.button');
+	            for (var i = 0; i < buttons.length; i++) {
+	                buttons[i].addEventListener('click', _Keyboard2.default.buttonClickHandler);
+	            }
+	        }
+	    }]);
+	
+	    return Microprocessor;
+	}();
+	
+	exports.default = Microprocessor;
+
+/***/ },
+/* 2 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -158,31 +144,28 @@
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	var DisplayField = function () {
-	    function DisplayField(len, value) {
+	    function DisplayField(idString, len, value) {
 	        _classCallCheck(this, DisplayField);
 	
 	        if (len < 1 || isNaN(len)) throw new Error("Invalid Field Length");
+	
+	        this.element = document.getElementById(idString) !== null ? document.getElementById(idString) : null;
+	
+	        if (!this.element) {
+	            throw new Error("Element not found. Incorrect ID");
+	        }
 	
 	        this.resetValue = value;
 	        this.length = len;
 	        this.fieldValue = value;
 	    }
 	
-	    //change entire value
+	    /*setter for fieldValue (modifies element text on change)*/
 	
 	    _createClass(DisplayField, [{
-	        key: "addChar",
-	
-	        /*add a char to value*/
-	        value: function addChar(value) {
-	            this.fieldValue += value;
-	            if (this.fieldValue.length > this.length) this.fieldValue = this.fieldValue.slice(1, this.length + 1);
-	        }
+	        key: "clear",
 	
 	        /*clear completely*/
-	
-	    }, {
-	        key: "clear",
 	        value: function clear() {
 	            this.fieldValue = "";
 	        }
@@ -194,6 +177,18 @@
 	        value: function reset() {
 	            this.fieldValue = this.resetValue;
 	        }
+	    }, {
+	        key: "fieldValue",
+	        set: function set(value) {
+	            this.element.innerHTML = value;
+	        }
+	
+	        /*getter for field value*/
+	        ,
+	        get: function get() {}
+	
+	        /*change entire value (slices if value > 4)*/
+	
 	    }, {
 	        key: "value",
 	        set: function set(value) {
@@ -211,6 +206,98 @@
 	}();
 	
 	exports.default = DisplayField;
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/**
+	 * Created by Lezwon on 26-01-2016.
+	 */
+	
+	var validKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", //data keys
+	"N", "M", "K", "L", "O", "P", "R", "S", "G", "H", "J", "I", "Y", "U"]; //control keys
+	
+	var Keyboard = function () {
+	    function Keyboard() {
+	        _classCallCheck(this, Keyboard);
+	    }
+	
+	    _createClass(Keyboard, null, [{
+	        key: "setController",
+	        value: function setController(Controller) {
+	            this.controller = Controller;
+	        }
+	    }, {
+	        key: "buttonClickHandler",
+	        value: function buttonClickHandler(e) {
+	            var character = e.target.value;
+	            Keyboard.sendToController(character);
+	        }
+	    }, {
+	        key: "keypressHandler",
+	        value: function keypressHandler(e) {
+	            var character = String.fromCharCode(e.keyCode).toUpperCase();
+	            Keyboard.sendToController(character);
+	        }
+	    }, {
+	        key: "sendToController",
+	        value: function sendToController(key) {
+	            for (var i = 0; i < validKeys.length; i++) {
+	                if (validKeys[i] == key) {
+	                    alert(key);
+	                    return true;
+	                }
+	            }return false;
+	        }
+	    }]);
+	
+	    return Keyboard;
+	}();
+	
+	exports.default = Keyboard;
+
+/***/ },
+/* 4 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	var Controller = function () {
+	    function Controller() {
+	        _classCallCheck(this, Controller);
+	    }
+	
+	    _createClass(Controller, null, [{
+	        key: "setDisplayFields",
+	        value: function setDisplayFields(addressField, dataField) {
+	            this.addressField = addressField;
+	            this.dataField = dataField;
+	        }
+	    }]);
+	
+	    return Controller;
+	}();
+	
+	exports.default = Controller;
 
 /***/ }
 /******/ ]);
