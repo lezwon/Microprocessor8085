@@ -107,7 +107,6 @@
 	            this.dataField = new _DisplayField2.default(dataFieldId, 2, "80");
 	
 	            _Controller2.default.setDisplayFields(this.addressField, this.dataField);
-	            _Keyboard2.default.setController(_Controller2.default);
 	        }
 	
 	        /*start listening for events*/
@@ -158,9 +157,10 @@
 	        this.resetValue = value;
 	        this.length = len;
 	        this.fieldValue = value;
+	        this.active = false;
 	    }
 	
-	    /*setter for fieldValue (modifies element text on change)*/
+	    //TODO remove class helper funtionc
 	
 	    _createClass(DisplayField, [{
 	        key: "clear",
@@ -177,6 +177,24 @@
 	        value: function reset() {
 	            this.fieldValue = this.resetValue;
 	        }
+	    }, {
+	        key: "activate",
+	        value: function activate() {
+	            this.active = true;
+	        }
+	    }, {
+	        key: "deactivate",
+	        value: function deactivate() {
+	            this.active = false;
+	        }
+	    }, {
+	        key: "active",
+	        set: function set(value) {
+	            this.element.classList.toggle("active", value);
+	        }
+	
+	        /*setter for fieldValue (modifies element text on change)*/
+	
 	    }, {
 	        key: "fieldValue",
 	        set: function set(value) {
@@ -209,24 +227,37 @@
 
 /***/ },
 /* 3 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }(); /**
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      * Created by Lezwon on 26-01-2016.
+	                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      */
 	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
 	
+	var _Controller = __webpack_require__(4);
+	
+	var _Controller2 = _interopRequireDefault(_Controller);
+	
+	var _Helper = __webpack_require__(5);
+	
+	var _Helper2 = _interopRequireDefault(_Helper);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	/**
-	 * Created by Lezwon on 26-01-2016.
-	 */
+	var keyMap;
 	
-	var validKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", //data keys
-	"N", "M", "K", "L", "O", "P", "R", "S", "G", "H", "J", "I", "Y", "U"]; //control keys
+	_Helper2.default.loadJSON("js/keymap.json").then(function (data) {
+	    keyMap = data;
+	}).catch(function () {
+	    console.log("Could not load Keymap File");
+	});
 	
 	var Keyboard = function () {
 	    function Keyboard() {
@@ -234,31 +265,29 @@
 	    }
 	
 	    _createClass(Keyboard, null, [{
-	        key: "setController",
-	        value: function setController(Controller) {
-	            this.controller = Controller;
-	        }
-	    }, {
-	        key: "buttonClickHandler",
+	        key: 'buttonClickHandler',
 	        value: function buttonClickHandler(e) {
 	            var character = e.target.value;
-	            Keyboard.sendToController(character);
+	            Keyboard.validate(character);
 	        }
 	    }, {
-	        key: "keypressHandler",
+	        key: 'keypressHandler',
 	        value: function keypressHandler(e) {
 	            var character = String.fromCharCode(e.keyCode).toUpperCase();
-	            Keyboard.sendToController(character);
+	            Keyboard.validate(character);
 	        }
 	    }, {
-	        key: "sendToController",
-	        value: function sendToController(key) {
-	            for (var i = 0; i < validKeys.length; i++) {
-	                if (validKeys[i] == key) {
-	                    alert(key);
-	                    return true;
+	        key: 'validate',
+	        value: function validate(key) {
+	            for (var el in keyMap) {
+	                if (keyMap.hasOwnProperty(el)) {
+	                    if (el == key) {
+	                        _Controller2.default.inputKey(key);
+	                        return true;
+	                    }
 	                }
-	            }return false;
+	            }
+	            return false;
 	        }
 	    }]);
 	
@@ -292,12 +321,68 @@
 	            this.addressField = addressField;
 	            this.dataField = dataField;
 	        }
+	    }, {
+	        key: "inputKey",
+	        value: function inputKey(key) {
+	            alert(key);
+	        }
 	    }]);
 	
 	    return Controller;
 	}();
 	
 	exports.default = Controller;
+
+/***/ },
+/* 5 */
+/***/ function(module, exports) {
+
+	"use strict";
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	/**
+	 * Created by Lezwon on 14-04-2016.
+	 */
+	
+	var Helper = function () {
+	    function Helper() {
+	        _classCallCheck(this, Helper);
+	    }
+	
+	    _createClass(Helper, null, [{
+	        key: "loadJSON",
+	        value: function loadJSON(path) {
+	            return new Promise(function (resolve, reject) {
+	                var xmlHttp = new XMLHttpRequest();
+	                xmlHttp.overrideMimeType("application/json");
+	
+	                //if successfull
+	                xmlHttp.onload = function () {
+	                    if (xmlHttp.readyState == 4 && xmlHttp.status == "200") {
+	                        resolve(JSON.parse(xmlHttp.responseText));
+	                    }
+	                };
+	
+	                //if error occurs
+	                xmlHttp.onerror = reject;
+	
+	                xmlHttp.open("GET", path, true);
+	                xmlHttp.send();
+	            });
+	        }
+	    }]);
+	
+	    return Helper;
+	}();
+	
+	exports.default = Helper;
 
 /***/ }
 /******/ ]);

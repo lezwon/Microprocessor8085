@@ -19,7 +19,6 @@ export default class Microprocessor{
         this.dataField = new DisplayField(dataFieldId,2,"80");
 
         Controller.setDisplayFields(this.addressField,this.dataField);
-        Keyboard.setController(Controller);
     }
 
 

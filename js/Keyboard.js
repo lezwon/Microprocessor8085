@@ -1,32 +1,39 @@
 /**
  * Created by Lezwon on 26-01-2016.
  */
+import Controller from './Controller';
+import Helper from './Helper';
 
-var validKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", //data keys
-    "N", "M", "K", "L", "O", "P", "R", "S", "G", "H", "J", "I", "Y", "U" ]; //control keys
+var keyMap;
+
+Helper.loadJSON("js/keymap.json").then(function (data) {
+    keyMap = data;
+}).catch(function () {
+    console.log("Could not load Keymap File");
+});
+
 
 export default class Keyboard{
 
-    static setController(Controller){
-        this.controller = Controller;
-    }
-    
     static buttonClickHandler(e) {
         var character = e.target.value;
-        Keyboard.sendToController(character);
+        Keyboard.validate(character);
     }
 
     static keypressHandler(e) {
         var character = String.fromCharCode(e.keyCode).toUpperCase();
-        Keyboard.sendToController(character);
+        Keyboard.validate(character);
     }
 
-    static sendToController(key){
-        for(var i=0; i<validKeys.length; i++)
-            if(validKeys[i] == key){
-                alert(key);
-                return true;
+    static validate(key){
+        for(var el in keyMap){
+            if(keyMap.hasOwnProperty(el)){
+                if(el == key){
+                    Controller.inputKey(key);
+                    return true;
+                }
             }
+        }
         return false;
     }
 }

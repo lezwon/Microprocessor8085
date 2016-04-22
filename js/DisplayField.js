@@ -1,8 +1,6 @@
 
 export default class DisplayField{
 
-
-
     constructor(idString,len,value){
         if(len < 1 || isNaN(len))
             throw new Error("Invalid Field Length");
@@ -16,7 +14,13 @@ export default class DisplayField{
         this.resetValue = value;
         this.length = len;
         this.fieldValue = value;
+        this.active = false;
+    }
 
+    //TODO remove class helper funtionc
+
+    set active(value){
+        this.element.classList.toggle("active",value);
     }
 
     /*setter for fieldValue (modifies element text on change)*/
@@ -25,9 +29,7 @@ export default class DisplayField{
     }
 
     /*getter for field value*/
-    get fieldValue(){
-
-    }
+    get fieldValue(){}
 
     /*change entire value (slices if value > 4)*/
     set value(value)
@@ -36,8 +38,6 @@ export default class DisplayField{
             this.fieldValue = value.slice(1,this.length+1);
         else
             this.fieldValue = value;
-
-
     }
 
     /*get the current value*/
@@ -57,5 +57,13 @@ export default class DisplayField{
     reset()
     {
         this.fieldValue = this.resetValue;
+    }
+
+    activate(){
+        this.active = true;
+    }
+    
+    deactivate(){
+        this.active = false;
     }
 }

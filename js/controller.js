@@ -4,4 +4,8 @@ export default class Controller{
         this.addressField = addressField;
         this.dataField = dataField;
     }
+
+    static inputKey(key) {
+        alert(key);
+    }
 }
